@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Waterpolo</title>
+</head>
+<body>
+<h1>Waterpolo</h1>
+<form th:action="@{/landingPage}">
+    <button type="submit" name="action" value="submitt">Back</button>
+</form>
+<form id="lookup-form"
+      th:action="@{/teams/modify}"
+      th:object="${team}" class="form" method="post">
+    <label for="teamName">team name: </label>
+    <input type="text" id="teamName" name="teamName" th:value="${team.teamName}" th:readonly="true">
+    <br>
+    <label for="teamLocation">team location: </label>
+    <input type="text" id="teamLocation" name="teamLocation" th:value="${team.teamLocation}" th:readonly="false">
+    <br>
+    <label for="teamRank">team rank: </label>
+    <input type="text" id="teamRank" name="teamRank" th:value="${team.teamRank}" th:readonly="false">
+    <br>
+    <label for="teamPoints">team points: </label>
+    <input type="text" id="teamPoints" name="teamPoints" th:value="${team.teamPoints}" th:readonly="false">
+    <br>
+    <label for="teamCaptain">team captain: </label>
+    <input type="text" id="teamCaptain" name="teamCaptain" th:value="${team.teamCaptain}" th:readonly="false">
+    <br>
+    <tr th:each="player, iStat : ${team.teamSquad}">
+        <label for="teamSquad.name">player name: </label>
+        <input type="text" id="teamSquad.name" name="teamSquad.name" th:value="${player.name}" th:readonly="false">
+        <br>
+        <label for="teamSquad.age">player age: </label>
+        <input type="text" id="teamSquad.age" name="teamSquad.age" th:value="${player.age}" th:readonly="false">
+        <br>
+        <label for="teamSquad.position">player position: </label>
+        <input type="text" id="teamSquad.position" name="teamSquad.position" th:value="${player.position}" th:readonly="false">
+        <br>
+    </tr>
+    <button type="submit" name="delete" value="delete">Delete</button>
+    <button type="submit" name="update" value="update">Update</button>
+</form>
+</body>
+</html>

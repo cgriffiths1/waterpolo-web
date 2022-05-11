@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Waterpolo</title>
+    <h1>Waterpolo</h1>
+</head>
+<body>
+<form th:action="@{/landingPage}">
+    <button type="submit" name="action" value="submitt">Back</button>
+</form>
+<form id="lookup-form"
+      th:action="@{/team}"
+      th:object="${teamName}" class="form" method="post">
+    <label for="teamName">Enter team name: </label>
+    <input type="text" id="teamName" name="teamName">
+    <br>
+    <button type="submit" name="action" value="submit">Find</button>
+</form>
+</body>
+</html>
