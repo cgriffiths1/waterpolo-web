@@ -2,15 +2,12 @@ package com.example.waterpoloweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -19,6 +16,7 @@ public class HTMLController {
     public static final String TEAMNAME_ATTRIBUTE = "teamName";
     public static final String NEWTEAM_ATTRIBUTE = "newTeam";
     public static final String TEAM_ATTRIBUTE = "team";
+    public static final String REDIRECT_TEAM = "redirect:/teams";
 
     @Autowired
     public HTMLController(RestTemplate restTemplate){
@@ -70,35 +68,33 @@ public class HTMLController {
 
     @GetMapping("/newTeam")
     public String newTeam(){
-        return "newTeam";
+        return NEWTEAM_ATTRIBUTE;
     }
 
     @PostMapping("/add")
     public String addTeam(@ModelAttribute(NEWTEAM_ATTRIBUTE) TeamModel newTeamAttribute){
         String teamURL = "http://localhost:8080/water-polo-api/teams";
         HttpEntity<TeamModel> request = new HttpEntity<>(newTeamAttribute);
-        ResponseEntity<TeamModel> response = restTemplate.postForEntity(teamURL, request, TeamModel.class);
-        return "redirect:/teams";
+        restTemplate.postForEntity(teamURL, request, TeamModel.class);
+        return REDIRECT_TEAM;
     }
 
     @PostMapping(value="/teams/modify", params="delete")
     public String deleteTeam(@ModelAttribute(TEAM_ATTRIBUTE) TeamModel modifyTeamAttribute){
-        String teamName = modifyTeamAttribute.getTeamName();
         String teamURL = "http://localhost:8080/water-polo-api/teams/delete";
         HttpEntity<TeamModel> request = new HttpEntity<>(modifyTeamAttribute);
-        ResponseEntity<TeamModel> response = restTemplate.postForEntity(teamURL, request, TeamModel.class);
+        restTemplate.postForEntity(teamURL, request, TeamModel.class);
 
-        return "redirect:/teams";
+        return REDIRECT_TEAM;
     }
 
     @PostMapping(value="/teams/modify", params="update")
     public String updateTeam(@ModelAttribute(TEAM_ATTRIBUTE) TeamModel modifyTeamAttribute){
-        String teamName = modifyTeamAttribute.getTeamName();
         String teamURL = "http://localhost:8080/water-polo-api/teams/update";
         HttpEntity<TeamModel> request = new HttpEntity<>(modifyTeamAttribute);
-        ResponseEntity<TeamModel> response = restTemplate.postForEntity(teamURL, request, TeamModel.class);
+        restTemplate.postForEntity(teamURL, request, TeamModel.class);
 
-        return "redirect:/teams";
+        return REDIRECT_TEAM;
     }
 
 }

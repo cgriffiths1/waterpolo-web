@@ -28,7 +28,7 @@
     <label for="teamCaptain">team captain: </label>
     <input type="text" id="teamCaptain" name="teamCaptain" th:value="${team.teamCaptain}" th:readonly="false">
     <br>
-    <tr th:each="player, iStat : ${team.teamSquad}">
+    <tr th:each="player: ${team.teamSquad}">
         <label for="teamSquad.name">player name: </label>
         <input type="text" id="teamSquad.name" name="teamSquad.name" th:value="${player.name}" th:readonly="false">
         <br>
